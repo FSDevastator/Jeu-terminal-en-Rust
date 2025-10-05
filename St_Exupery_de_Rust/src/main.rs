@@ -13,5 +13,8 @@ use crate::loot::Loot;
 fn main() {
     println!("St-Exupéry de Rust.");
 
+    let l = Loot::default();
+
+    println!("{}",l.find_sword());
 }
 

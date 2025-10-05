@@ -47,14 +47,68 @@ impl Default for StExupery {
         }
     }
 
-    impl St_Exupery {
+    impl StExupery {
         pub fn get_health(&self) -> i16 {
             self.vie
         }
     }
 
-    impl St_Exupery {
+    impl StExupery {
         pub fn set_health(&mut self, valeur:i16) {
             self.vie = valeur;
+        }
+    }
+
+    impl StExupery {
+        pub fn ajouter_potion(&mut self) {
+            if self.inventaire.len()==3 {
+                println!("Inventaire plein! La potion a été abandonnée.")
+            } else {
+                self.inventaire.push(Potion::default());
+                println!("Potion conservée pour plus tard.")
+            }
+        
+        }
+    }
+
+    impl StExupery {
+        pub fn boire_potion(&mut self){
+
+            if self.get_health()==100 {
+                println!("Vitalité déjà au maximum!")
+            } else {
+                match self.inventaire.pop() {
+                Some(potion) => {
+                    if self.get_health() + potion.get_puissance() > 100 {
+                        self.set_health(100);
+                        println!("Potion consommé! Vitalité max!")
+                    } else {
+                        self.set_health(potion.get_puissance()+ self.get_health());
+                        println!("Potion consommé!  Vitalité {}",self.get_health())
+                    }
+                }
+                None => {
+                    println!("Vous n'avez aucune Potion!")
+                }
+            }
+            
+            }
+
+        }
+    }
+
+    impl StExupery {
+
+        pub fn boire_potion_trouvee (&mut self) {
+
+            if self.get_health()==100 {
+                println!("Vitalité déjà au maximum!");
+            } else if self.get_health() + Potion::default().get_puissance() > 100 {
+                self.set_health(100);
+                println!("Potion consommé! Vitalité max!");
+            } else {
+                self.set_health( self.get_health() + Potion::default().get_puissance());
+                println!("Potion consommé!  Vitalité {}",self.get_health());
+            }
         }
     }

@@ -69,3 +69,31 @@ impl Loot {
         &self.shields
     }
 }
+
+impl Loot {
+    pub fn find_sword(&self) -> &Epee {
+        let mut rng = rand::thread_rng();
+        let mut chance1:usize = rng.gen_range(0..19);
+
+        if chance1 >= 7{
+            if rng.gen_range(1..3) == 1 {
+                chance1 = rng.gen_range(7..19);
+            }
+        }
+        &self.get_swords()[chance1]
+    }
+}
+
+impl Loot {
+    pub fn find_shield(&self) -> &Bouclier {
+        let mut rng = rand::thread_rng();
+        let mut chance1:usize = rng.gen_range(0..19);
+
+        if chance1 >= 9{
+            if rng.gen_range(1..3) == 1 {
+                chance1 = rng.gen_range(9..19);
+            }
+        }
+        &self.get_shields()[chance1]
+    }
+}
