@@ -24,3 +24,25 @@ pub struct StExupery {
      pub bouclier: Bouclier,
      pub inventaire: Vec<Potion>
 }
+
+impl Default for StExupery {
+        fn default() -> Self{
+            Self{
+                vie:100,
+                epee: Epee::default(),
+                bouclier: Bouclier::default(),
+                inventaire: Vec::<Potion>::new()
+
+            }
+        }
+    }
+
+    impl St_Exupery {
+        pub fn new(vitalite: i16, epee: Epee, bouclier:Bouclier, inventaire: Vec<Potion>) -> Self {
+            Self {vie: vitalite, 
+                epee:epee,
+                bouclier:bouclier,
+                inventaire:inventaire
+            }
+        }
+    }
