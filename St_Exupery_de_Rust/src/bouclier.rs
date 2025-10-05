@@ -27,3 +27,27 @@ impl Bouclier {
         }
     }
 }
+
+impl Bouclier {
+    pub fn get_name(&self) -> &String {
+        &self.nom
+    }
+}
+
+impl Bouclier {
+    pub fn set_name(&mut self, nouv: &str) {
+        self.nom = nouv.to_string();
+    }
+}
+
+impl Bouclier {
+    pub fn get_def(&self) -> i16 {
+        self.def
+    }
+}
+
+impl Bouclier {
+    pub fn set_def(&mut self,defense:i16) {
+        self.def=defense;
+    }
+}

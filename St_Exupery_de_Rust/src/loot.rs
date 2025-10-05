@@ -57,3 +57,15 @@ impl Default for Loot {
         }
     }
 }
+
+impl Loot {
+    pub fn get_swords(&self) -> &[Epee]{
+        &self.swords
+    }
+}
+
+impl Loot {
+    pub fn get_shields(&self) -> &[Bouclier] {
+        &self.shields
+    }
+}

@@ -1,8 +1,8 @@
 use std::fmt;
 
 pub struct Epee {
-        pub nom: String,
-        pub puissance: i16,
+        nom: String,
+        puissance: i16,
     }
 
 impl fmt::Display for Epee {
@@ -23,5 +23,29 @@ impl fmt::Display for Epee {
     impl Epee {
         pub fn new(nom: &str, puissance: i16 ) -> Self {
             Self {nom: nom.to_string(),puissance}
+        }
+    }
+
+    impl Epee {
+        pub fn set_name (&mut self, nouv:&String) {
+            self.nom = nouv.to_string();
+        }
+    }
+
+    impl Epee {
+        pub fn get_name (&self) -> &String {
+            &self.nom
+        }
+    }
+
+    impl Epee {
+        pub fn set_puissance(&mut self, pwr: i16) {
+            self.puissance = pwr;
+        }
+    }
+
+    impl Epee {
+        pub fn get_puissance (&self) -> i16{
+            self.puissance
         }
     }

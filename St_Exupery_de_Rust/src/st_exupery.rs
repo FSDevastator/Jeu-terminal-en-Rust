@@ -37,12 +37,24 @@ impl Default for StExupery {
         }
     }
 
-    impl St_Exupery {
+    impl StExupery {
         pub fn new(vitalite: i16, epee: Epee, bouclier:Bouclier, inventaire: Vec<Potion>) -> Self {
             Self {vie: vitalite, 
                 epee:epee,
                 bouclier:bouclier,
                 inventaire:inventaire
             }
+        }
+    }
+
+    impl St_Exupery {
+        pub fn get_health(&self) -> i16 {
+            self.vie
+        }
+    }
+
+    impl St_Exupery {
+        pub fn set_health(&mut self, valeur:i16) {
+            self.vie = valeur;
         }
     }

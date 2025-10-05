@@ -10,3 +10,8 @@ impl Default for Potion {
     }
 }
 
+impl Potion{
+    pub fn get_puissance(&self) -> i16 {
+        self.puissance
+    }
+} 
