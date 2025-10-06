@@ -28,7 +28,7 @@ impl fmt::Display for Epee {
     }
 
     impl Epee {
-        pub fn set_name (&mut self, nouv:&String) {
+        pub fn set_name (&mut self, nouv:&str) {
             self.nom = nouv.to_string();
         }
     }

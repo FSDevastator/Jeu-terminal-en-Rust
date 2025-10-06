@@ -42,3 +42,10 @@ impl FromStr for Diff {
         }
     }
 }
+
+enum Scenario {
+    Monstre,
+    Potion (Potion),
+    Epee (Epee),
+    Bouc (Bouclier),
+}

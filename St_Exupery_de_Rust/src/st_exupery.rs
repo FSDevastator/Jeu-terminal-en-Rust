@@ -59,6 +59,19 @@ impl Default for StExupery {
         }
     }
 
+    // New
+    impl StExupery {
+        pub fn get_shield(&mut self) -> &mut Bouclier {
+            &mut self.bouclier
+        }
+    }
+    // New
+    impl StExupery {
+        pub fn get_sword(&mut self) -> &mut Epee {
+            &mut self.epee
+        }
+    }
+
     impl StExupery {
         pub fn ajouter_potion(&mut self) {
             if self.inventaire.len()==3 {
@@ -109,6 +122,26 @@ impl Default for StExupery {
             } else {
                 self.set_health( self.get_health() + Potion::default().get_puissance());
                 println!("Potion consommé!  Vitalité {}",self.get_health());
+            }
+        }
+    }
+
+    impl StExupery {
+        pub fn take_damage (&mut self, mut dam:i16)-> bool {
+			// reduce incoming damage by shield amount first
+            dam -= self.get_shield().get_def();
+
+            if dam <= 0 {
+                dam=0;
+            }
+
+            if self.get_health() - dam <= 0{
+                return true
+                
+            } else {
+                self.set_health(self.get_health() - dam);
+                println!("St-Exupéry a subit {} pts de dommages!",dam);
+                return false
             }
         }
     }
