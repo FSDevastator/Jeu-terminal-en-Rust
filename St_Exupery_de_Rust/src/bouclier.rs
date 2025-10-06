@@ -1,4 +1,5 @@
 use std::fmt;
+#[derive(Clone)]
 pub struct Bouclier {
     nom: String,
     def: i16,

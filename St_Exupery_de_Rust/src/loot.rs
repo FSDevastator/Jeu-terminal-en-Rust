@@ -1,6 +1,5 @@
 use crate::Epee;
 use crate::Bouclier;
-use rand::random;
 use rand::Rng;
 
 
@@ -76,8 +75,10 @@ impl Loot {
         let mut chance1:usize = rng.gen_range(0..19);
 
         if chance1 >= 7{
-            if rng.gen_range(1..3) == 1 {
+            if rng.gen_range(1..8) == 1 {
                 chance1 = rng.gen_range(7..19);
+            } else {
+                chance1 = rng.gen_range(0..7);
             }
         }
         &self.get_swords()[chance1]
@@ -90,8 +91,10 @@ impl Loot {
         let mut chance1:usize = rng.gen_range(0..19);
 
         if chance1 >= 9{
-            if rng.gen_range(1..3) == 1 {
+            if rng.gen_range(1..8) == 1 {
                 chance1 = rng.gen_range(9..19);
+            } else {
+                chance1 = rng.gen_range(0..9);
             }
         }
         &self.get_shields()[chance1]
