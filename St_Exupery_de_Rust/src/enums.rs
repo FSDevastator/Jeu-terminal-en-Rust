@@ -7,7 +7,7 @@ use std::str::FromStr;
 
 pub enum Scenario {
     Monstre,
-    Potion (Potion),
+    Potion,
     Epee (Epee),
     Bouc (Bouclier),
 }
@@ -33,6 +33,26 @@ impl FromStr for Diff {
             "m" => Ok(Diff::M),
             "d" => Ok(Diff::D),
             _=> Err(format!("La valeur {} est invalide pour enum de type Diff.",s)),
+        }
+    }
+}
+
+#[derive(Debug,PartialEq)]
+pub enum Nav {
+    Explorer,
+    Guerir,
+    Quit
+}
+
+impl FromStr for Nav {
+    type Err = String;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        match s {
+            "e" => Ok(Nav::Explorer),
+            "b" => Ok(Nav::Guerir),
+            "q" => Ok(Nav::Quit),
+            _=> Err(format!("La valeur {} est invalide pour enum de type Nav.",s)),
         }
     }
 }

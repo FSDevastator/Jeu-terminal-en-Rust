@@ -73,6 +73,13 @@ impl Default for StExupery {
     }
 
     impl StExupery {
+        pub fn get_inventory(&self) -> usize {
+            self.inventaire.len()
+        }
+
+    }
+
+    impl StExupery {
         pub fn ajouter_potion(&mut self) {
             if self.inventaire.len()==3 {
                 println!("Inventaire plein! La potion a été abandonnée.")
