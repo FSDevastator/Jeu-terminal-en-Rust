@@ -1,0 +1,38 @@
+use crate::potion::Potion;
+use crate::epee::Epee;
+use crate::bouclier::Bouclier;
+
+use std::str::FromStr;
+
+
+pub enum Scenario {
+    Monstre,
+    Potion (Potion),
+    Epee (Epee),
+    Bouc (Bouclier),
+}
+
+pub enum CombatItem {
+    Sword(Epee),
+    Shield(Bouclier),
+}
+
+#[derive(Debug,PartialEq)]
+pub enum Diff {
+    F,
+    M,
+    D,
+}
+
+impl FromStr for Diff {
+    type Err = String;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        match s {
+            "f" => Ok(Diff::F),
+            "m" => Ok(Diff::M),
+            "d" => Ok(Diff::D),
+            _=> Err(format!("La valeur {} est invalide pour enum de type Diff.",s)),
+        }
+    }
+}

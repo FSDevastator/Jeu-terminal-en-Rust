@@ -1,5 +1,5 @@
 
-
+use crate::CombatItem;
 use crate::Epee;
 use crate::Bouclier;
 use crate::Potion;
@@ -59,13 +59,13 @@ impl Default for StExupery {
         }
     }
 
-    // New
+    
     impl StExupery {
         pub fn get_shield(&mut self) -> &mut Bouclier {
             &mut self.bouclier
         }
     }
-    // New
+    
     impl StExupery {
         pub fn get_sword(&mut self) -> &mut Epee {
             &mut self.epee
@@ -155,5 +155,21 @@ impl Default for StExupery {
             let attack:i16 = self.get_health()/10 + self.get_sword().get_puissance();
             println!("St-Exupéry attaque avec {} pour {} dommages!", self.get_sword().get_name(),attack);
             attack
+        }
+    }
+
+    impl StExupery {
+        pub fn equip_combat_item(&mut self, item: CombatItem) {
+            match item {
+                CombatItem::Sword(new_sword) => {
+                    self.get_sword().set_name(new_sword.get_name());
+                    self.get_sword().set_puissance(new_sword.get_puissance());
+
+                }
+                CombatItem::Shield(new_shield) => {
+                    self.get_shield().set_name(new_shield.get_name());
+                    self.get_shield().set_def((new_shield.get_def()));
+                }
+            }
         }
     }
