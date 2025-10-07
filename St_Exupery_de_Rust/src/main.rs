@@ -28,14 +28,5 @@ fn main() {
 
     println!("St-Exupéry de Rust.\n");
 
-    let mut hero = StExupery::default();
-
-    println!("{}", hero.get_shield());
-
-    hero.equip_combat_item(CombatItem::Shield(Loot::default().find_shield().clone()));
-
-    println!("{}", hero.get_shield());
-
-    
 }
 
