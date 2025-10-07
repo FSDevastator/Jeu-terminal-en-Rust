@@ -20,7 +20,6 @@ use crate::monstre::Monstre;
 fn main() {
 
     println!("St-Exupéry de Rust.\n");
-
 }
 
 #[derive(Debug,PartialEq)]

@@ -101,7 +101,42 @@ impl Monstre {
 }
 
 impl Monstre {
+    fn set_vitalite(&mut self,value:i16) {
+        self.vitalite = value;
+    }
+}
+
+impl Monstre {
     pub fn get_name(&self) -> &str {
         &self.nom
+    }
+}
+
+
+impl Monstre {
+    pub fn attack(&self) -> i16 {
+        let mut rng = rand::thread_rng();
+        
+        let attack =rng.gen_range(self.min_domm..self.max_domm);
+
+        println!("{} attaque pour {} points!", self.get_name(), attack);
+
+        attack
+
+    }
+}
+
+impl Monstre {
+    pub fn take_damage(&mut self,dam:i16) ->bool {
+        
+        if self.get_vitalite()-dam <=0 {
+            println!("\n{} anéanti!",self.get_name());
+            return true
+        } else {
+            self.set_vitalite(*self.get_vitalite()-dam);
+            println!("{} est atteint pour {} dommages!", self.get_name(), dam);
+            println!("Encore {} points de vitalité!",self.get_vitalite());
+            return false
+        }   
     }
 }

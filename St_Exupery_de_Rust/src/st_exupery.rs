@@ -128,7 +128,7 @@ impl Default for StExupery {
 
     impl StExupery {
         pub fn take_damage (&mut self, mut dam:i16)-> bool {
-			// reduce incoming damage by shield amount first
+			
             dam -= self.get_shield().get_def();
 
             if dam <= 0 {
@@ -136,12 +136,24 @@ impl Default for StExupery {
             }
 
             if self.get_health() - dam <= 0{
+                println!("Le héro a péri dans le combat.");
                 return true
                 
             } else {
                 self.set_health(self.get_health() - dam);
-                println!("St-Exupéry a subit {} pts de dommages!",dam);
+                println!("St-Exupéry fait dévier l'attaque avec {}!  Recoit seulement {} points de dommages!",
+                        self.get_shield().get_name(), dam);
+                println!("\nVitalité à {}.", self.get_health());
+
                 return false
             }
+        }
+    }
+
+    impl StExupery {
+        pub fn attack(&mut self) ->i16 {
+            let attack:i16 = self.get_health()/10 + self.get_sword().get_puissance();
+            println!("St-Exupéry attaque avec {} pour {} dommages!", self.get_sword().get_name(),attack);
+            attack
         }
     }
