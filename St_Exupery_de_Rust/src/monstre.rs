@@ -1,5 +1,8 @@
 use std::fmt;
 use rand::Rng;
+use std::thread;
+use std::time::Duration;
+use colored::Colorize;
 
 use crate::Diff;
 
@@ -12,7 +15,7 @@ pub struct Monstre {
 
 impl fmt::Display for Monstre {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "Le monstre {} a {} points de vitalité.",self.get_name(), self.get_vitalite())
+        write!(f, "Le monstre {} a {} points de vitalité.",self.get_name().truecolor(159, 120, 36), self.get_vitalite().to_string().yellow())
     }
 }
 
@@ -69,9 +72,9 @@ impl Monstre {
 
         match Difficulty {
             Diff::F => {
-                vit= rng.gen_range(100..120);
-                min_d= rng.gen_range(8..11);
-                max_d= rng.gen_range(12..15);
+                vit= rng.gen_range(60..80);
+                min_d= rng.gen_range(8..9);
+                max_d= rng.gen_range(10..11);
             }
             Diff::M => {
                 vit = rng.gen_range(150..170);
@@ -119,7 +122,9 @@ impl Monstre {
         
         let attack =rng.gen_range(self.min_domm..self.max_domm);
 
-        println!("{} attaque pour {} points!", self.get_name(), attack);
+        println!("{} {} pour {} points!", self.get_name().truecolor(159, 120, 36),"attaque".red(), attack.to_string().yellow());
+
+        thread::sleep(Duration::from_millis(2000));
 
         attack
 
@@ -130,12 +135,15 @@ impl Monstre {
     pub fn take_damage(&mut self,dam:i16) ->bool {
         
         if self.get_vitalite()-dam <=0 {
-            println!("\n{} anéanti!",self.get_name());
+            println!("\n{} anéanti!",self.get_name().truecolor(159, 120, 36));
+            thread::sleep(Duration::from_millis(1000));
             return true
         } else {
             self.set_vitalite(*self.get_vitalite()-dam);
-            println!("{} est atteint pour {} dommages!", self.get_name(), dam);
-            println!("Encore {} points de vitalité!",self.get_vitalite());
+            println!("{} est atteint pour {} dommages!", self.get_name().truecolor(159, 120, 36), dam.to_string().yellow());
+            thread::sleep(Duration::from_millis(2000));
+            println!("Encore {} points de vitalité!\n",self.get_vitalite().to_string().yellow());
+            thread::sleep(Duration::from_millis(1000));
             return false
         }   
     }

@@ -1,13 +1,21 @@
+use colored::Colorize;
 use rand::Rng;
 use std::io;
+use std::io::Write;
 use std::str::FromStr;
 use std::process;
+use std::thread;
+use std::time::Duration;
+use pad::{PadStr,Alignment};
+
 
 mod enums;
 use crate::enums::Diff;
 use crate::enums::CombatItem;
 use crate::enums::Scenario;
 use crate::enums::Nav;
+use crate::enums::PotionAction;
+use crate::enums::ItemAction;
 
 mod epee;
 mod bouclier;
@@ -30,7 +38,7 @@ fn main() {
     let mut world_entity_monsters = main_menu();
 
     if world_entity_monsters.len()==0 {
-        println!("Quitting...");
+        println!("\nQuitting...");
         process::exit(0);
     }
 
@@ -38,15 +46,14 @@ fn main() {
     let mut world_hero_death =false;
 
     loop {
-        let world_nav_choice = world_navigate(&world_entity_monsters, &world_entity_hero);
+        let world_nav_choice = world_navigate(&world_entity_monsters, &mut world_entity_hero);
 
         match world_nav_choice {
             Nav::Explorer => {
 
-                println!("here");
-                let world_scenario = get_scenario();
+                let world_scenario = world_get_scenario();
 
-                world_hero_death=world_set_scenario(Scenario::Monstre, &mut world_entity_monsters, &mut world_entity_hero);
+                world_hero_death=world_set_scenario(world_scenario, &mut world_entity_monsters, &mut world_entity_hero);
 
                 if world_hero_death == true {
                     break;
@@ -57,15 +64,31 @@ fn main() {
                 world_entity_hero.boire_potion();
             }
             Nav::Quit => {
-                println!("Quitting...");
+                println!("\nQuitting...");
                 process::exit(0);
             }
         }
 
         if world_entity_monsters.len() ==0 {
-            println!("\nToutes les créatures de ce territoire sont anéanties...");
-            println!("\nVous prenez un genou et déposez votre arme.  Vous jurez en silence que Rust verra l'aube...");
+
+            thread::sleep(Duration::from_millis(2000));
+            println!("\n{}", "Toutes les créatures de ce territoire sont anéanties...".truecolor(230, 112, 11));
+            thread::sleep(Duration::from_millis(2000));
+            println!("\n{}","Vous prenez un genou et déposez votre arme.  Vous jurez en silence que Rust verra l'aube...".truecolor(230, 112, 11));
+            thread::sleep(Duration::from_millis(5000));
+
+            println!("\n");
+
+            world_entity_monsters = main_menu();
+            
+            if world_entity_monsters.len()==0 {
+                println!("\nQuitting...");
+                process::exit(0);
+            }
+            world_entity_hero = StExupery::default();
+
         }
+
     }
 
 }
@@ -87,11 +110,12 @@ fn main_menu() -> Vec<Monstre> {
     
     let mut world_monsters = Vec::<Monstre>::default();
 
-    println!("St-Exupéry de Rust.\n");
+    println!("{text:^width$}", text="St-Exupéry de Rust".on_truecolor(54, 235, 102), width=50);
+    thread::sleep(Duration::from_secs(1));
 
     loop {
         input_string.clear();
-        println!("Choisir le niveau de défi, (F)acile, (M)oyen ou (D)ifficile ou taper (q)uitter,>> ");
+        println!("\nChoisir le niveau de défi:\n\n (F)acile,\n (M)oyen\n (D)ifficile\n (Q)uitter\n");
         input_string = get_input();
 
         if quit_values.contains(&input_string.to_lowercase()) {
@@ -109,10 +133,10 @@ fn main_menu() -> Vec<Monstre> {
 
 }
 
-
 fn get_input() -> String {
     let mut input_string = String::new();
-
+    print!("+∩+ >> ");
+    io::stdout().flush();
     io::stdin()
             .read_line(&mut input_string)
             .expect("Failed to read line.");
@@ -144,18 +168,30 @@ fn initialize_monsters (Difficulty: Diff, enemies: &mut Vec<Monstre>) {
 
 }
 
-fn sit_rep (monsters: usize, hero:&StExupery) {
+fn sit_rep (monsters: usize, hero:&mut StExupery) {
+    thread::sleep(Duration::from_secs(1));
     println!("\nLe silence est lourd dans le royaume..mais vous sentez une menace omni-présente...");
-    println!("\nIl reste {} créatures à anéantir...", monsters);
-    println!("St-Exupéry a {} de vitalité et {} potions...", hero.get_health(), hero.get_inventory());
+    thread::sleep(Duration::from_secs(2));
+    println!("\nIl reste {} créatures à anéantir...\n", monsters.to_string().yellow());
+    thread::sleep(Duration::from_millis(1000));
+    
+    println!("{} a {} de vitalité et {} {}...", "St-Exupéry".truecolor(0,19,94), hero.get_health().to_string().yellow(),
+     hero.get_inventory().to_string().yellow(), "potions".truecolor(207, 163, 234));
+
+    thread::sleep(Duration::from_millis(500));
+    println!("{}", hero.get_sword());
+    thread::sleep(Duration::from_millis(500));
+    println!("{}",hero.get_shield());
+    thread::sleep(Duration::from_millis(1000));
+
 }
 
-fn world_navigate(monsters:&Vec<Monstre>, hero: &StExupery) -> Nav {
+fn world_navigate(monsters:&Vec<Monstre>, hero: &mut StExupery) -> Nav {
 
     sit_rep(monsters.len(), hero);
 
-    println!("(E)xplorer le royaume abandonné.");
-    println!("(B)oire une potion");
+    println!("\n(E)xplorer le royaume abandonné.");
+    println!("(B)oire une {}", "potion".truecolor(207, 163, 234));
     println!("(Q)uitter la quête");
 
     let mut world_choice = String::new();
@@ -164,10 +200,10 @@ fn world_navigate(monsters:&Vec<Monstre>, hero: &StExupery) -> Nav {
     Nav::from_str(&world_choice).unwrap()
 }
 
-fn get_scenario() -> Scenario {
+fn world_get_scenario() -> Scenario {
 
     let mut rng = rand::thread_rng();
-    let select: i16 = rng.gen_range(1..4);
+    let select: i16 = rng.gen_range(1..9);
 
     if select == 1 {
         Scenario::Potion
@@ -184,16 +220,68 @@ fn get_scenario() -> Scenario {
 fn world_set_scenario (scene:Scenario, monsters:&mut Vec<Monstre>, hero:&mut StExupery) -> bool {
     match scene {
         Scenario::Potion => {
-            
-            println!("\nVous avancez et vous apercevez quelque chose qui capte votre attention...");
-            println!("Potion trouvée! (C)onsommer ou mettre en (I)nventaire?");
+
+            println!("\nVous avancez depuis quelques temps, et vous apercevez quelque chose qui capte votre attention...");
+            thread::sleep(Duration::from_millis(500));
+            println!("\n{} trouvée! (C)onsommer ou mettre en (I)nventaire?","Potion".truecolor(207, 163, 234));
+
+            match PotionAction::from_str(&get_input().to_lowercase()).unwrap() {
+                PotionAction::Consume => {
+                    hero.boire_potion_trouvee();
+                }
+
+                PotionAction::Store => {
+                    hero.ajouter_potion();
+                }
+
+            }
+
+            false
 
         }
 
         Scenario::Epee(sword) => {
+
+            thread::sleep(Duration::from_millis(1000));
+            println!("\nVous avancez depuis quelques temps, et vous apercevez quelque chose qui capte votre attention...");
+            thread::sleep(Duration::from_millis(2000));
+            println!("\nUne épée...");
+            thread::sleep(Duration::from_millis(1000));
+            println!("\n{}",sword);
+            thread::sleep(Duration::from_millis(500));
+            println!("\n(E)quiper ou (a)bandonner?") ;
+
+            match ItemAction::from_str(&get_input().to_lowercase()).unwrap() {
+                ItemAction::Equip => {
+                    hero.equip_combat_item(CombatItem::Sword((sword)));
+                }
+                ItemAction::Discard => {
+                    println!("\nItem abandonné.")
+                }
+            }
+
             false
         }
         Scenario::Bouc(shield) => {
+
+            thread::sleep(Duration::from_millis(1000));
+            println!("\nVous avancez depuis quelques temps, et vous apercevez quelque chose qui capte votre attention...");
+            thread::sleep(Duration::from_millis(2000));
+            println!("\nUn bouclier...?");
+            thread::sleep(Duration::from_millis(1000));
+            println!("\n{}",shield);
+            thread::sleep(Duration::from_millis(500));
+            println!("\n(E)quiper ou (a)bandonner?") ;
+
+            match ItemAction::from_str(&get_input().to_lowercase()).unwrap() {
+                ItemAction::Equip => {
+                    hero.equip_combat_item(CombatItem::Shield(shield));
+                }
+                ItemAction::Discard => {
+                    println!("\nItem abandonné.")
+                }
+            }
+
             false
         }
 
@@ -211,8 +299,13 @@ fn world_set_scenario (scene:Scenario, monsters:&mut Vec<Monstre>, hero:&mut StE
                 }
             };
             
+            thread::sleep(Duration::from_millis(2000));
+            println!("\nVous avancez depuis quelques temps...");
+            thread::sleep(Duration::from_millis(1000));
             println!("\nSoudainement, une créature maléfique sort d'une ombre et court vers vous...");
-            println!("\n{}",world_entity_opponent);
+            thread::sleep(Duration::from_millis(2000));
+            println!("\n{}\n",world_entity_opponent);
+            thread::sleep(Duration::from_millis(1500));
             
             let mut HeroState:bool = false;
             let mut MonsterState:bool = false;
@@ -238,6 +331,3 @@ fn world_set_scenario (scene:Scenario, monsters:&mut Vec<Monstre>, hero:&mut StE
     }
 }   
 
-fn world_found_item () {
-
-}

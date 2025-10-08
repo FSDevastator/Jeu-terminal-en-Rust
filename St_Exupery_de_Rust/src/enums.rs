@@ -56,3 +56,40 @@ impl FromStr for Nav {
         }
     }
 }
+
+#[derive(Debug,PartialEq)]
+pub enum PotionAction {
+    Consume,
+    Store,
+}
+
+impl FromStr for PotionAction {
+    type Err = String;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        match s {
+            "c" => Ok(PotionAction::Consume),
+            "i" => Ok(PotionAction::Store),
+            _=> Err(format!("La valeur {} est invalide pour enum de type PotionAction.",s)),
+        }
+    }
+}
+
+#[derive(Debug,PartialEq)]
+pub enum ItemAction {
+    Equip,
+    Discard,
+}
+
+impl FromStr for ItemAction {
+    type Err = String;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        match s {
+            "e" => Ok(ItemAction::Equip),
+            "a" => Ok(ItemAction::Discard),
+            _=> Err(format!("La valeur {} est invalide pour enum de type ItemAction.",s)),
+        }
+    }
+}
+

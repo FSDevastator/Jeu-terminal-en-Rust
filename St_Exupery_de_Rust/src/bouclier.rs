@@ -1,4 +1,6 @@
 use std::fmt;
+use colored::Colorize;
+
 #[derive(Clone)]
 pub struct Bouclier {
     nom: String,
@@ -7,7 +9,7 @@ pub struct Bouclier {
 
 impl fmt::Display for Bouclier {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-            write!(f, "Vous avez trouvé le bouclier {} avec puissance {}! ", self.get_name(),self.get_def())
+            write!(f, "{} a le {} {} avec puissance {}! ","St-Exupéry".truecolor(0,19,94), "bouclier".truecolor(87, 247, 87),self.get_name(),self.get_def().to_string().yellow())
         }
     }
 

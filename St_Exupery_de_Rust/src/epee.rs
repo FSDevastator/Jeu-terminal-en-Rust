@@ -1,4 +1,5 @@
 use std::fmt;
+use colored::Colorize;
 
 #[derive(Clone)]
 pub struct Epee {
@@ -8,7 +9,7 @@ pub struct Epee {
 
 impl fmt::Display for Epee {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-            write!(f, "Vous avez trouvé l'épée {} avec puissance {}! ", self.get_name(),self.get_puissance())
+            write!(f, "{} a l'{} {} avec puissance {}! ","St-Exupéry".truecolor(0,19,94), "épée".truecolor(59, 193, 255),self.get_name(),self.get_puissance().to_string().yellow())
         }
     }
 
