@@ -1,0 +1,9 @@
+(function() {
+    var implementors = Object.fromEntries([["St_Exupery_de_Rust",[["impl <a class=\"trait\" href=\"https://doc.rust-lang.org/1.90.0/core/str/traits/trait.FromStr.html\" title=\"trait core::str::traits::FromStr\">FromStr</a> for <a class=\"enum\" href=\"St_Exupery_de_Rust/enums/enum.Diff.html\" title=\"enum St_Exupery_de_Rust::enums::Diff\">Diff</a>"],["impl <a class=\"trait\" href=\"https://doc.rust-lang.org/1.90.0/core/str/traits/trait.FromStr.html\" title=\"trait core::str::traits::FromStr\">FromStr</a> for <a class=\"enum\" href=\"St_Exupery_de_Rust/enums/enum.ItemAction.html\" title=\"enum St_Exupery_de_Rust::enums::ItemAction\">ItemAction</a>"],["impl <a class=\"trait\" href=\"https://doc.rust-lang.org/1.90.0/core/str/traits/trait.FromStr.html\" title=\"trait core::str::traits::FromStr\">FromStr</a> for <a class=\"enum\" href=\"St_Exupery_de_Rust/enums/enum.Nav.html\" title=\"enum St_Exupery_de_Rust::enums::Nav\">Nav</a>"],["impl <a class=\"trait\" href=\"https://doc.rust-lang.org/1.90.0/core/str/traits/trait.FromStr.html\" title=\"trait core::str::traits::FromStr\">FromStr</a> for <a class=\"enum\" href=\"St_Exupery_de_Rust/enums/enum.PotionAction.html\" title=\"enum St_Exupery_de_Rust::enums::PotionAction\">PotionAction</a>"]]],["colored",[["impl <a class=\"trait\" href=\"https://doc.rust-lang.org/1.90.0/core/str/traits/trait.FromStr.html\" title=\"trait core::str::traits::FromStr\">FromStr</a> for <a class=\"enum\" href=\"colored/enum.Color.html\" title=\"enum colored::Color\">Color</a>"]]]]);
+    if (window.register_implementors) {
+        window.register_implementors(implementors);
+    } else {
+        window.pending_implementors = implementors;
+    }
+})()
+//{"start":57,"fragment_lengths":[1211,269]}

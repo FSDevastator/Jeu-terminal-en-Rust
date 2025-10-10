@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["CombatItem","Diff","ItemAction","Nav","PotionAction","Scenario"]};
