@@ -452,15 +452,13 @@ impl Default for StExupery {
         pub fn equip_combat_item(&mut self, item: CombatItem) {
             match item {
                 CombatItem::Sword(new_sword) => {
-                    self.get_sword().set_name(new_sword.get_name());
-                    self.get_sword().set_puissance(new_sword.get_puissance());
-                    println!("\n{} équippé!",new_sword.get_name());
+                    *self.get_sword() = new_sword;
+                    println!("\n{} équippé!",self.get_sword());
 
                 }
                 CombatItem::Shield(new_shield) => {
-                    self.get_shield().set_name(new_shield.get_name());
-                    self.get_shield().set_def(new_shield.get_def());
-                    println!("\n{} équippé!",new_shield.get_name());
+                    *self.get_shield() = new_shield;
+                    println!("\n{} équippé!",self.get_shield());
                 }
             }
         }
