@@ -453,12 +453,15 @@ impl Default for StExupery {
             match item {
                 CombatItem::Sword(new_sword) => {
                     *self.get_sword() = new_sword;
-                    println!("\n{} équippé!",self.get_sword());
-
+                    let pwr = self.get_sword().get_puissance();
+                    println!("St-Exupéry a équippé l'épée {} avec puissance {}!", self.get_sword().get_name(), pwr);
+                    
                 }
                 CombatItem::Shield(new_shield) => {
                     *self.get_shield() = new_shield;
-                    println!("\n{} équippé!",self.get_shield());
+                    let def = self.get_shield().get_def();
+                    println!("St-Exupéry a équippé le bouclier {} avec défense {}!", self.get_shield().get_name(), def);
+                    
                 }
             }
         }
