@@ -1356,7 +1356,7 @@ impl Loot {
         let mut chance1:usize = rng().random_range(0..19);
 
         if chance1 >= 7{
-            if rng().random_range(1..8) == 1 {
+            if rng().random_range(1..6) == 1 {
                 chance1 = rng().random_range(7..19);
             } else {
                 chance1 = rng().random_range(0..7);
@@ -1393,7 +1393,7 @@ impl Loot {
         let mut chance1:usize = rng().random_range(0..19);
 
         if chance1 >= 9{
-            if rng().random_range(1..8) == 1 {
+            if rng().random_range(1..6) == 1 {
                 chance1 = rng().random_range(9..19);
             } else {
                 chance1 = rng().random_range(0..9);
