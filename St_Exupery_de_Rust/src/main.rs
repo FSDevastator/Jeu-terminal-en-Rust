@@ -354,15 +354,12 @@ fn world_get_scenario() -> Scenario {
     let rng = rand::rng;
     let select: i16 = rng().random_range(1..9);
 
-    if select == 1 {
-        Scenario::Potion
-    } else if select == 2 {
-        Scenario::Epee((Loot::default().find_sword()).clone())
-    } else if select == 3 {
-        Scenario::Bouc(Loot::default().find_shield().clone())
-    } else {
-        Scenario::Monstre
-    }
+    match select {
+        1 => return Scenario::Potion,
+        2 => return Scenario::Epee((Loot::default().find_sword()).clone()),
+        3 => return Scenario::Bouc(Loot::default().find_shield().clone()),
+        _ => return Scenario::Monstre,
+    };
 
 }
 
@@ -387,8 +384,11 @@ fn world_set_scenario (scene:Scenario, monsters:&mut Vec<Monstre>, hero:&mut StE
     match scene {
         Scenario::Potion => {
 
-            println!("\nVous avancez depuis quelques temps, et vous apercevez quelque chose qui capte votre attention...");
-            thread::sleep(Duration::from_millis(500));
+            thread::sleep(Duration::from_millis(2000));
+            println!("\nVous avancez depuis quelques temps...");
+            thread::sleep(Duration::from_millis(1000));
+            println!("\n...et vous apercevez quelque chose qui capte votre attention...");
+            thread::sleep(Duration::from_millis(1000));
             println!("\n{} trouvée! (C)onsommer ou mettre en (I)nventaire?","Potion".truecolor(207, 163, 234));
 
             match PotionAction::from_str(&get_validated_menu_input(&vec!["c".to_string(),"i".to_string()]).to_lowercase()).unwrap() {
@@ -409,8 +409,10 @@ fn world_set_scenario (scene:Scenario, monsters:&mut Vec<Monstre>, hero:&mut StE
 
         Scenario::Epee(sword) => {
 
+            thread::sleep(Duration::from_millis(2000));
+            println!("\nVous avancez depuis quelques temps...");
             thread::sleep(Duration::from_millis(1000));
-            println!("\nVous avancez depuis quelques temps, et vous apercevez quelque chose qui capte votre attention...");
+            println!("\n...et vous apercevez quelque chose qui capte votre attention...");
             thread::sleep(Duration::from_millis(2000));
             println!("\nUne épée...");
             thread::sleep(Duration::from_millis(1000));
@@ -431,8 +433,10 @@ fn world_set_scenario (scene:Scenario, monsters:&mut Vec<Monstre>, hero:&mut StE
         }
         Scenario::Bouc(shield) => {
 
+            thread::sleep(Duration::from_millis(2000));
+            println!("\nVous avancez depuis quelques temps...");
             thread::sleep(Duration::from_millis(1000));
-            println!("\nVous avancez depuis quelques temps, et vous apercevez quelque chose qui capte votre attention...");
+            println!("\n...et vous apercevez quelque chose qui capte votre attention...");
             thread::sleep(Duration::from_millis(2000));
             println!("\nUn bouclier...?");
             thread::sleep(Duration::from_millis(1000));

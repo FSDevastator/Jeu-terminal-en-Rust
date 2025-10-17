@@ -107,7 +107,7 @@ impl Default for StExupery {
                 Diff::D => {
                     Self {
                         vie: 100, 
-                        epee:Epee::default(),
+                        epee:Epee::new("Cleaver",10),
                         bouclier:Bouclier::default(),
                         inventaire: vec![Potion::default();3]
                     }
@@ -454,16 +454,31 @@ impl Default for StExupery {
                 CombatItem::Sword(new_sword) => {
                     *self.get_sword() = new_sword;
                     let pwr = self.get_sword().get_puissance();
-                    println!("St-Exupéry a équippé l'épée {} avec puissance {}!", self.get_sword().get_name(), pwr);
+
+                    println!(
+                        "\n{} a équippé l'{} {} avec puissance {}!",
+                        "St-Exupéry".truecolor(212,151,11),
+                        "épée".truecolor(59, 193, 255),
+                        self.get_sword().get_name(),
+                         pwr.to_string().yellow()
+                        );
+                    
                     
                 }
                 CombatItem::Shield(new_shield) => {
                     *self.get_shield() = new_shield;
                     let def = self.get_shield().get_def();
-                    println!("St-Exupéry a équippé le bouclier {} avec défense {}!", self.get_shield().get_name(), def);
+                    println!(
+                        "\n{} a équippé le {} {} avec défense {}!",
+                        "St-Exupéry".truecolor(212,151,11),
+                         "bouclier".truecolor(87, 247, 87),
+                        self.get_shield().get_name(),
+                         def.to_string().yellow()
+                        );
                     
                 }
             }
+            thread::sleep(Duration::from_millis(2000));
         }
     }
 
@@ -606,7 +621,7 @@ impl Monstre {
 
         match difficulty {
             Diff::F => {
-                vit= rng().random_range(60..80);
+                vit= rng().random_range(55..70);
                 min_d= rng().random_range(8..9);
                 max_d= rng().random_range(10..11);
             }
