@@ -295,10 +295,10 @@ impl Default for StExupery {
                 Some(potion) => {
                     if self.get_health() + potion.get_puissance() > 100 {
                         self.set_health(100);
-                        println!("\nPotion consommé! Vitalité {}!","max".yellow())
+                        println!("\n 🍷 Potion consommé! Vitalité {}!","max".yellow())
                     } else {
                         self.set_health(potion.get_puissance()+ self.get_health());
-                        println!("\nPotion consommé!  Vitalité {}",self.get_health().to_string().yellow())
+                        println!("\n 🍷 Potion consommé!  Vitalité {}",self.get_health().to_string().yellow())
                     }
                 }
                 None => {
@@ -339,10 +339,10 @@ impl Default for StExupery {
 
             } else if self.get_health() + Potion::default().get_puissance() > 100 {
                 self.set_health(100);
-                println!("\nPotion consommé! Vitalité {}!","max".yellow());
+                println!("\n 🍷 Potion consommé! Vitalité {}!","max".yellow());
             } else {
                 self.set_health( self.get_health() + Potion::default().get_puissance());
-                println!("\nPotion consommé!  Vitalité {}",self.get_health().to_string().yellow());
+                println!("\n 🍷 Potion consommé!  Vitalité {}",self.get_health().to_string().yellow());
             }
         }
     }
@@ -379,16 +379,16 @@ impl Default for StExupery {
 
             if self.get_health() - dam <= 0{
                 thread::sleep(Duration::from_millis(1000));
-                println!("\n{}","Le héro a péri dans le combat...\n".truecolor(245,10,10));
+                println!("\n 🪦 {}","Le héro a péri dans le combat...\n".truecolor(245,10,10));
                 thread::sleep(Duration::from_millis(3000));
-                println!("\n{}","...la renaissance de Rust ne verra jamais l'aube...\n".truecolor(245,10,10));
+                println!("\n{}","...la renaissance de Rust ne verra jamais l'aube...\n 🪦 ".truecolor(245,10,10));
                 thread::sleep(Duration::from_millis(3000));
                 
                 return true
                 
             } else {
                 self.set_health(self.get_health() - dam);
-                println!("{} fait {} l'attaque avec {}!  Recoit seulement {} points de dommages!",
+                println!("{} fait {} 🛡️ l'attaque avec {}!  Recoit seulement {} points de dommages!",
                         "St-Exupéry".truecolor(212,151,11),
                         "dévier".truecolor(87, 247, 87), self.get_shield().get_name(), dam.to_string().yellow());
                 thread::sleep(Duration::from_millis(2000));
@@ -422,7 +422,7 @@ impl Default for StExupery {
         /// 
         pub fn attack(&mut self) ->i16 {
             let attack:i16 = self.get_health()/10 + self.get_sword().get_puissance();
-            println!("{} {} avec {} pour {} dommages!", "St-Exupéry".truecolor(212,151,11),"attaque".red(), 
+            println!("{} {} avec {} pour {} dommages! 💥 ", "St-Exupéry".truecolor(212,151,11),"attaque".red(), 
             self.get_sword().get_name(),attack.to_string().yellow());
             thread::sleep(Duration::from_millis(2000));
             attack
@@ -456,7 +456,7 @@ impl Default for StExupery {
                     let pwr = self.get_sword().get_puissance();
 
                     println!(
-                        "\n{} a équippé l'{} {} avec puissance {}!",
+                        "\n🗡️ {} a équippé l'{} {} avec puissance {} 🗡️!",
                         "St-Exupéry".truecolor(212,151,11),
                         "épée".truecolor(59, 193, 255),
                         self.get_sword().get_name(),
@@ -469,7 +469,7 @@ impl Default for StExupery {
                     *self.get_shield() = new_shield;
                     let def = self.get_shield().get_def();
                     println!(
-                        "\n{} a équippé le {} {} avec défense {}!",
+                        "\n🛡️ {} a équippé le {} {} avec défense {} 🛡️!",
                         "St-Exupéry".truecolor(212,151,11),
                          "bouclier".truecolor(87, 247, 87),
                         self.get_shield().get_name(),
@@ -752,7 +752,7 @@ impl Monstre {
         
         let attack =rng().random_range(self.min_domm..self.max_domm);
 
-        println!("{} {} pour {} points!", self.get_name().truecolor(159, 120, 36),"attaque".red(), attack.to_string().yellow());
+        println!("{} {} pour {} points! 💥 ", self.get_name().truecolor(159, 120, 36),"attaque".red(), attack.to_string().yellow());
 
         thread::sleep(Duration::from_millis(2000));
 
@@ -785,14 +785,14 @@ impl Monstre {
     pub fn take_damage(&mut self,dam:i16) ->bool {
         
         if self.get_vitalite()-dam <=0 {
-            println!("\n{} anéanti!",self.get_name().truecolor(159, 120, 36));
+            println!("\n ⚰️ {} anéanti! ⚰️",self.get_name().truecolor(159, 120, 36));
             thread::sleep(Duration::from_millis(2000));
             return true
         } else {
             self.set_vitalite(*self.get_vitalite()-dam);
             println!("{} est atteint pour {} dommages!", self.get_name().truecolor(159, 120, 36), dam.to_string().yellow());
             thread::sleep(Duration::from_millis(2000));
-            println!("Encore {} points de vitalité!\n",self.get_vitalite().to_string().yellow());
+            println!("Encore {} points de vitalité! 👻 \n",self.get_vitalite().to_string().yellow());
             thread::sleep(Duration::from_millis(1000));
             return false
         }   

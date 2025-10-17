@@ -89,9 +89,9 @@ fn main() {
         if world_entity_monsters.len() ==0 {
 
             thread::sleep(Duration::from_millis(2000));
-            println!("\n{}", "Toutes les créatures de ce territoire sont anéanties...".truecolor(230, 112, 11));
+            println!("\n 🕊️ {}", "Toutes les créatures de ce territoire sont anéanties...".truecolor(230, 112, 11));
             thread::sleep(Duration::from_millis(2000));
-            println!("\n{}","Vous prenez un genou et déposez votre arme.  Vous jurez en silence que Rust verra l'aube...".truecolor(230, 112, 11));
+            println!("\n{}","Vous prenez un genou et déposez votre arme.  Vous jurez en silence que Rust verra l'aube... 🕊️ ".truecolor(230, 112, 11));
             thread::sleep(Duration::from_millis(5000));
 
             println!("\n");
@@ -132,7 +132,7 @@ fn main_menu() -> (StExupery,Vec<Monstre>) {
     let mut hero = StExupery::default();
     let mut world_monsters = Vec::<Monstre>::default();
 
-    println!("{text:^width$}", text="St-Exupéry de Rust".on_truecolor(212,151,11), width=50);
+    println!("{text:^width$}", text=" +=={:::::::::::::::::> St-Exupéry de Rust +=={:::::::::::::::::>".on_truecolor(212,151,11), width=50);
     thread::sleep(Duration::from_secs(1));
 
 
@@ -385,11 +385,11 @@ fn world_set_scenario (scene:Scenario, monsters:&mut Vec<Monstre>, hero:&mut StE
         Scenario::Potion => {
 
             thread::sleep(Duration::from_millis(2000));
-            println!("\nVous avancez depuis quelques temps...");
+            println!("\n 🗻 Vous avancez depuis quelques temps... 🗻 ");
             thread::sleep(Duration::from_millis(1000));
             println!("\n...et vous apercevez quelque chose qui capte votre attention...");
             thread::sleep(Duration::from_millis(1000));
-            println!("\n{} trouvée! (C)onsommer ou mettre en (I)nventaire?","Potion".truecolor(207, 163, 234));
+            println!("\n 🍷 {} trouvée! (C)onsommer ou mettre en (I)nventaire?","Potion".truecolor(207, 163, 234));
 
             match PotionAction::from_str(&get_validated_menu_input(&vec!["c".to_string(),"i".to_string()]).to_lowercase()).unwrap() {
                 PotionAction::Consume => {
@@ -410,13 +410,13 @@ fn world_set_scenario (scene:Scenario, monsters:&mut Vec<Monstre>, hero:&mut StE
         Scenario::Epee(sword) => {
 
             thread::sleep(Duration::from_millis(2000));
-            println!("\nVous avancez depuis quelques temps...");
+            println!("\n 🗻 Vous avancez depuis quelques temps... 🗻 ");
             thread::sleep(Duration::from_millis(1000));
             println!("\n...et vous apercevez quelque chose qui capte votre attention...");
             thread::sleep(Duration::from_millis(2000));
             println!("\nUne épée...");
             thread::sleep(Duration::from_millis(1000));
-            println!("\n{}",sword);
+            println!("\n 🗡️ {}",sword);
             thread::sleep(Duration::from_millis(500));
             println!("\n(E)quiper ou (a)bandonner?") ;
 
@@ -434,13 +434,13 @@ fn world_set_scenario (scene:Scenario, monsters:&mut Vec<Monstre>, hero:&mut StE
         Scenario::Bouc(shield) => {
 
             thread::sleep(Duration::from_millis(2000));
-            println!("\nVous avancez depuis quelques temps...");
+            println!("\n 🗻 Vous avancez depuis quelques temps... 🗻 ");
             thread::sleep(Duration::from_millis(1000));
             println!("\n...et vous apercevez quelque chose qui capte votre attention...");
             thread::sleep(Duration::from_millis(2000));
             println!("\nUn bouclier...?");
             thread::sleep(Duration::from_millis(1000));
-            println!("\n{}",shield);
+            println!("\n 🛡️ {}",shield);
             thread::sleep(Duration::from_millis(500));
             println!("\n(E)quiper ou (a)bandonner?") ;
 
@@ -470,11 +470,11 @@ fn world_set_scenario (scene:Scenario, monsters:&mut Vec<Monstre>, hero:&mut StE
             };
             
             thread::sleep(Duration::from_millis(2000));
-            println!("\nVous avancez depuis quelques temps...");
+            println!("\n 🗻 Vous avancez depuis quelques temps... 🗻 ");
             thread::sleep(Duration::from_millis(1000));
             println!("\nSoudainement, une créature inhumaine, maléfique sort d'une ombre et court vers vous...");
             thread::sleep(Duration::from_millis(2000));
-            println!("\n{}\n",world_entity_opponent);
+            println!("\n 💀 {} 💀 \n",world_entity_opponent);
             thread::sleep(Duration::from_millis(1500));
             
             let mut hero_state:bool = false;
