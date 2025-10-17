@@ -1,2 +1,3 @@
 *.html linguist-vendored
 Makefile linguist-generated=true
+Makefile linguist-vendored
